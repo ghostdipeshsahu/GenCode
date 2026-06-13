@@ -47,8 +47,13 @@ QUESTIONS_DIR = _BACKEND_DIR.parent / "questions"
 
 
 def _load_questions() -> Dict[str, Question]:
+    """Load every enriched question JSON in questions/. Files prefixed with
+    `raw_` are pre-enrichment inputs to the Author script and are ignored.
+    """
     questions: Dict[str, Question] = {}
     for path in sorted(QUESTIONS_DIR.glob("*.json")):
+        if path.name.startswith("raw_"):
+            continue
         with open(path, encoding="utf-8") as f:
             raw = json.load(f)
         q = Question(**raw)

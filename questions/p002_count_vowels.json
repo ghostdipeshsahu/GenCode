@@ -1,0 +1,54 @@
+{
+  "id": "P002",
+  "problem_description": "Write a function that receives a single word and returns how many vowels (a, e, i, o, u) appear in it. The check should ignore letter case, and the letter 'y' must not be counted as a vowel.",
+  "requirements": "- Logical Decomposition: Iterate over each character in the input word.; Check whether the character is one of the five vowels, ignoring case.; Count how many characters satisfy the vowel condition.\n- Implementation Specifications: Function name must be count_vowels.; It takes one parameter named word.; Implementation language is Python.; Return an integer representing the vowel count.\n- Edge Case Handling: Handle an empty string and return 0.; Treat uppercase and lowercase vowels equally.; Do not count the letter 'y' (in any case) as a vowel.\n- Output Formatting: Return a plain integer, not a string or other type.\n- Avoiding Default Biases: Explicitly list the vowels as a, e, i, o, u and consider both lower\u2011 and upper\u2011case forms.; Do not assume any other characters are vowels.; Do not treat 'y' as a vowel even though it sometimes acts like one.",
+  "sample_tests": [
+    {
+      "input": "'hello'",
+      "expected": "2"
+    },
+    {
+      "input": "'WORLD'",
+      "expected": "1"
+    },
+    {
+      "input": "'Programming'",
+      "expected": "3"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "''",
+      "expected": "0",
+      "edge_label": "empty_string"
+    },
+    {
+      "input": "'AEIOU'",
+      "expected": "5",
+      "edge_label": "all_upper_vowels"
+    },
+    {
+      "input": "'aeiou'",
+      "expected": "5",
+      "edge_label": "all_lower_vowels"
+    },
+    {
+      "input": "'bcdfg'",
+      "expected": "0",
+      "edge_label": "no_vowels"
+    },
+    {
+      "input": "'PyThOn'",
+      "expected": "1",
+      "edge_label": "mixed_case_y_excluded"
+    },
+    {
+      "input": "'sky'",
+      "expected": "0",
+      "edge_label": "y_not_counted"
+    }
+  ],
+  "reference_solution": "def count_vowels(word):\n    vowels = 'aeiouAEIOU'\n    return sum(1 for c in word if c in vowels)",
+  "reference_prompt": "Write a Python function named count_vowels that takes a single argument word (a string). The function should return an integer equal to the number of vowels in word. Vowels are only the letters a, e, i, o, and u; count them case\u2011insensitively, so both uppercase and lowercase versions count. The letter y must never be counted as a vowel. The function should correctly handle an empty string by returning 0. Return the count as an int, not as a string or any other type.",
+  "reference_code": "def count_vowels(word):\n    vowels = 'aeiouAEIOU'\n    return sum(1 for c in word if c in vowels)"
+}

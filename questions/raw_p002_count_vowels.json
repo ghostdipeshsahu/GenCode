@@ -1,0 +1,20 @@
+{
+  "id": "P002",
+  "statement": "Given a word, count how many vowels it contains. The standard English vowels are a, e, i, o, and u. The letter 'y' is NOT counted as a vowel. The check must be case-insensitive — uppercase vowels count just like lowercase ones.",
+  "function_signature": "def count_vowels(word):",
+  "primary_kp_label": "strings/counting",
+  "sample_tests": [
+    {"input": "'hello'", "expected": "2"},
+    {"input": "'WORLD'", "expected": "1"},
+    {"input": "'Programming'", "expected": "3"}
+  ],
+  "hidden_tests": [
+    {"input": "''", "expected": "0", "edge_label": "empty_string"},
+    {"input": "'AEIOU'", "expected": "5", "edge_label": "all_upper_vowels"},
+    {"input": "'aeiou'", "expected": "5", "edge_label": "all_lower_vowels"},
+    {"input": "'bcdfg'", "expected": "0", "edge_label": "no_vowels"},
+    {"input": "'PyThOn'", "expected": "1", "edge_label": "mixed_case_y_excluded"},
+    {"input": "'sky'", "expected": "0", "edge_label": "y_not_counted"}
+  ],
+  "reference_solution": "def count_vowels(word):\n    vowels = 'aeiouAEIOU'\n    return sum(1 for c in word if c in vowels)"
+}
