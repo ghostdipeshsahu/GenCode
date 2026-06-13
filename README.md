@@ -40,7 +40,7 @@ cd backend
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-$env:ANTHROPIC_API_KEY = "sk-..."
+# Put OPENROUTER_API_KEY=... in gencode/backend/.env (gitignored)
 uvicorn main:app --reload
 ```
 
@@ -55,6 +55,6 @@ spec. Steps 1–3 are pure Python and can be tested without the frontend.
 ## Stack
 
 - Python 3.11+ / FastAPI
-- Anthropic API, model `claude-sonnet-4-6`
+- OpenRouter (OpenAI-compatible), model `deepseek/deepseek-chat-v3.1:free`
 - React (frontend, Step 6)
 - In-memory session state (no database)
