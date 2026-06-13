@@ -1,0 +1,342 @@
+:root {
+  --bg: #0f1117;
+  --panel: #161922;
+  --panel-2: #1d2230;
+  --border: #2a3142;
+  --text: #e6e9ef;
+  --muted: #8a93a6;
+  --accent: #6ea8fe;
+  --good: #4ade80;
+  --bad: #f87171;
+  --warn: #fbbf24;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 20px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.app header h1 {
+  font-size: 22px;
+  margin: 0 0 4px;
+}
+.app header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.panel h2 {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+.problem-desc {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.requirements {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+.requirements li {
+  padding: 8px 12px;
+  background: var(--panel-2);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  line-height: 1.4;
+}
+.requirements li b {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.sample-tests {
+  margin: 14px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 13px;
+}
+.sample-tests .row {
+  background: var(--panel-2);
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+.sample-tests .row .arrow {
+  color: var(--muted);
+  margin: 0 8px;
+}
+
+.editor textarea {
+  width: 100%;
+  min-height: 160px;
+  resize: vertical;
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.editor textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.editor-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 12px;
+}
+
+.editor-controls .meta {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.run-button {
+  background: var(--accent);
+  color: #0b1020;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+.run-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.scores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.score-card {
+  background: var(--panel-2);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.score-card .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.score-card .value {
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.score-card.overall .value {
+  color: var(--accent);
+}
+
+.feedback {
+  background: var(--panel-2);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.findings {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.findings li {
+  background: var(--panel-2);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  border-left: 3px solid var(--border);
+}
+.findings li.correct {
+  border-left-color: var(--good);
+}
+.findings li.omission {
+  border-left-color: var(--warn);
+}
+.findings li.commission {
+  border-left-color: var(--bad);
+}
+.findings li .req-text {
+  display: block;
+  line-height: 1.4;
+}
+.findings li .evidence {
+  display: block;
+  color: var(--muted);
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.findings .badge {
+  display: inline-block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 8px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+.findings .badge.correct {
+  background: rgba(74, 222, 128, 0.15);
+  color: var(--good);
+}
+.findings .badge.omission {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--warn);
+}
+.findings .badge.commission {
+  background: rgba(248, 113, 113, 0.15);
+  color: var(--bad);
+}
+
+.tests {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+.tests .row {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 12px;
+  padding: 6px 10px;
+  background: var(--panel-2);
+  border-radius: 4px;
+  align-items: center;
+}
+.tests .row .flag.pass {
+  color: var(--good);
+}
+.tests .row .flag.fail {
+  color: var(--bad);
+}
+.tests .row .body {
+  word-break: break-all;
+}
+.tests .row .body .label {
+  color: var(--muted);
+}
+.tests .row.hidden {
+  background: var(--panel-2);
+  opacity: 0.92;
+}
+.tests .row .err {
+  display: block;
+  margin-top: 3px;
+  color: var(--bad);
+}
+
+.celebration {
+  background: linear-gradient(120deg, rgba(74, 222, 128, 0.18), rgba(110, 168, 254, 0.15));
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  color: var(--good);
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.history-empty {
+  color: var(--muted);
+  font-size: 13px;
+}
+.history-row {
+  display: grid;
+  grid-template-columns: 60px 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--panel-2);
+  border-radius: 4px;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.history-row .attempt {
+  color: var(--muted);
+}
+.history-row .summary {
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.history-row .score {
+  color: var(--accent);
+  font-weight: 600;
+}
+.history-row .tests-count {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.error-bar {
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  color: var(--bad);
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.loading {
+  color: var(--muted);
+  font-size: 13px;
+}

@@ -27,7 +27,10 @@ gencode/
 │   ├── core/code_executor.py  exec()-based test runner
 │   ├── models/schemas.py      Pydantic contracts
 │   └── requirements.txt
-├── frontend/                  React SPA (Step 6)
+├── frontend/                  React SPA (Vite)
+│   ├── src/App.jsx
+│   └── src/components/         ProblemPanel, PromptEditor,
+│                                ResultsPanel, AttemptHistory
 ├── questions/                 Pre-enriched JSON (one file per question)
 └── scripts/author.py          Offline Author agent (eval loop, max 3 retries)
 ```
@@ -45,7 +48,15 @@ uvicorn main:app --reload
 ```
 
 ### Frontend
-Added in Step 6.
+```powershell
+cd frontend
+npm install
+npm run dev
+# Open http://localhost:5173
+```
+
+Vite proxies `/api/*` to the backend on `:8000`, so you do not need to set
+any CORS or base-URL env vars during development. Start the backend first.
 
 ## Build order
 
@@ -55,6 +66,7 @@ spec. Steps 1–3 are pure Python and can be tested without the frontend.
 ## Stack
 
 - Python 3.11+ / FastAPI
-- OpenRouter (OpenAI-compatible), model `deepseek/deepseek-chat-v3.1:free`
+- OpenRouter (OpenAI-compatible), model `openai/gpt-oss-120b:free`
+- React 18 + Vite (frontend)
 - React (frontend, Step 6)
 - In-memory session state (no database)
