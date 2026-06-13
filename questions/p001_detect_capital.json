@@ -1,0 +1,20 @@
+{
+  "id": "P001",
+  "problem_description": "A text editor needs to check whether a word follows one of three standard capitalization rules. Write a function that returns True if the word is valid according to these rules, and False otherwise.",
+  "requirements": "- Logical Decomposition: check the word against all three rules and return True if any one of them matches\n- Implementation Specifications: function named detect_capital, takes one string parameter called word\n- Edge Case Handling: single-character words like 'A' or 'a' must be handled correctly\n- Output Formatting: return a Boolean (True or False), not a string or integer\n- Avoiding Default Biases: all three rules must be explicitly defined in the prompt; the AI does not know what 'valid capitalization' means without being told",
+  "sample_tests": [
+    {"input": "'HELLO'", "expected": "True"},
+    {"input": "'hello'", "expected": "True"},
+    {"input": "'Hello'", "expected": "True"},
+    {"input": "'HeLLo'", "expected": "False"}
+  ],
+  "hidden_tests": [
+    {"input": "'A'", "expected": "True", "edge_label": "single_upper"},
+    {"input": "'a'", "expected": "True", "edge_label": "single_lower"},
+    {"input": "'hELLO'", "expected": "False", "edge_label": "lower_first_then_upper"},
+    {"input": "'HELLo'", "expected": "False", "edge_label": "mostly_upper_last_lower"}
+  ],
+  "reference_solution": "def detect_capital(word):\n    return word.isupper() or word.islower() or (word[0].isupper() and word[1:].islower())",
+  "reference_prompt": "Write a function detect_capital(word) that returns True if the word follows ANY of these three rules: (1) all letters are uppercase (e.g. HELLO), (2) all letters are lowercase (e.g. hello), (3) only the first letter is uppercase and ALL remaining letters are lowercase (e.g. Hello). Return False if none of these rules match. The function must return a Boolean value, not a string. Single-character words like 'A' or 'a' must also be handled correctly by the same three rules.",
+  "reference_code": "def detect_capital(word):\n    return word.isupper() or word.islower() or (word[0].isupper() and word[1:].islower())"
+}
