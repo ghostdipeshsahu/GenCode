@@ -54,6 +54,39 @@ body,
   padding: 18px 20px;
 }
 
+.question-picker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+.question-picker label {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+}
+.question-picker select {
+  flex: 1;
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  min-width: 280px;
+  cursor: pointer;
+}
+.question-picker select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.question-picker select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .panel h2 {
   font-size: 15px;
   text-transform: uppercase;

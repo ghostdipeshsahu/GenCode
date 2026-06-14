@@ -5,6 +5,8 @@ import ResultsPanel from "./components/ResultsPanel.jsx";
 import AttemptHistory from "./components/AttemptHistory.jsx";
 
 export default function App() {
+  const [questions, setQuestions] = useState([]); // [{id, title}, ...]
+  const [selectedId, setSelectedId] = useState(null);
   const [question, setQuestion] = useState(null);
   const [loadError, setLoadError] = useState(null);
 
@@ -13,7 +15,7 @@ export default function App() {
   const [running, setRunning] = useState(false);
   const [runError, setRunError] = useState(null);
 
-  // Load the first available question on mount.
+  // Load the question list once at mount; select the first one.
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -22,10 +24,32 @@ export default function App() {
           if (!r.ok) throw new Error(`/api/questions returned ${r.status}`);
           return r.json();
         });
+        if (cancelled) return;
         if (!list.length) throw new Error("no questions configured on backend");
-        const first = list[0];
-        const q = await fetch(`/api/question/${first.id}`).then((r) => {
-          if (!r.ok) throw new Error(`/api/question/${first.id} returned ${r.status}`);
+        setQuestions(list);
+        setSelectedId(list[0].id);
+      } catch (err) {
+        if (!cancelled) setLoadError(err.message || String(err));
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Load the selected question and reset session state whenever the
+  // selection changes.
+  useEffect(() => {
+    if (!selectedId) return;
+    let cancelled = false;
+    setQuestion(null);
+    setPrompt("");
+    setAttempts([]);
+    setRunError(null);
+    (async () => {
+      try {
+        const q = await fetch(`/api/question/${selectedId}`).then((r) => {
+          if (!r.ok) throw new Error(`/api/question/${selectedId} returned ${r.status}`);
           return r.json();
         });
         if (!cancelled) setQuestion(q);
@@ -36,7 +60,7 @@ export default function App() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [selectedId]);
 
   const latest = attempts.length ? attempts[attempts.length - 1] : null;
   const allPassed = latest?.response?.all_passed === true;
@@ -83,6 +107,24 @@ export default function App() {
         <h1>GenCode</h1>
         <p>Teach the AI. Write prompts so precise that a literal model produces correct code.</p>
       </header>
+
+      {questions.length > 0 && (
+        <div className="question-picker">
+          <label htmlFor="qpicker">Question</label>
+          <select
+            id="qpicker"
+            value={selectedId || ""}
+            onChange={(e) => setSelectedId(e.target.value)}
+            disabled={running}
+          >
+            {questions.map((q) => (
+              <option key={q.id} value={q.id}>
+                {q.id} — {q.title}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       {loadError && <div className="error-bar">Could not load question: {loadError}</div>}
 
