@@ -1,0 +1,48 @@
+{
+  "id": "P005",
+  "problem_description": "Create a function that finds the second biggest distinct integer in a list. If the list doesn't contain at least two different numbers, the function should return None.",
+  "requirements": "- Logical Decomposition: Remove duplicate values to work with unique numbers only.; Check whether there are at least two unique numbers.; Sort the unique numbers in descending order.; Return the element at index 1 (the second largest).\n- Implementation Specifications: Function name: second_largest; Parameter: numbers (list of integers); Language: Python; Do not modify the original input list.\n- Edge Case Handling: Return None for an empty list or a list with only one unique value.; Handle lists containing negative numbers correctly.; Handle lists where the largest value appears multiple times.\n- Output Formatting: Return an integer for the second largest value, or None when it does not exist.\n- Avoiding Default Biases: Do not assume the list is already sorted or contains only positive numbers.",
+  "sample_tests": [
+    {
+      "input": "[3, 1, 4, 1, 5, 9, 2, 6]",
+      "expected": "6"
+    },
+    {
+      "input": "[1, 1, 1]",
+      "expected": "None"
+    },
+    {
+      "input": "[5, 3]",
+      "expected": "3"
+    },
+    {
+      "input": "[10, 20, 30]",
+      "expected": "20"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "[]",
+      "expected": "None",
+      "edge_label": "empty_list"
+    },
+    {
+      "input": "[1]",
+      "expected": "None",
+      "edge_label": "single_element"
+    },
+    {
+      "input": "[-1, -2, -3]",
+      "expected": "-2",
+      "edge_label": "all_negative"
+    },
+    {
+      "input": "[5, 5, 4]",
+      "expected": "4",
+      "edge_label": "duplicates_at_max"
+    }
+  ],
+  "reference_solution": "def second_largest(numbers):\n    unique = list(set(numbers))\n    if len(unique) < 2:\n        return None\n    unique.sort(reverse=True)\n    return unique[1]",
+  "reference_prompt": "Write a Python function named second_largest that takes a single argument numbers, a list of integers. The function must return the second largest unique integer in the list. First, eliminate duplicate values, then check if there are at least two distinct numbers; if not, return None. Otherwise, sort the unique values in descending order and return the element at index 1. Do not modify the original list. The function should correctly handle empty lists, single-element lists, negative numbers, and cases where the maximum value appears multiple times.",
+  "reference_code": "def second_largest(numbers):\n    unique = list(set(numbers))\n    if len(unique) < 2:\n        return None\n    unique.sort(reverse=True)\n    return unique[1]"
+}

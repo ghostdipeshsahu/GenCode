@@ -1,0 +1,53 @@
+{
+  "id": "P004",
+  "problem_description": "Create a function called grade that takes a numeric test score and returns the corresponding letter grade. The grade follows the standard scale: 90 or above is 'A', 80\u201189 is 'B', 70\u201179 is 'C', 60\u201169 is 'D', and anything lower is 'F'.",
+  "requirements": "- Logical Decomposition: Check the score against the highest threshold first and work downwards.; Return the appropriate letter for the first condition that matches.\n- Implementation Specifications: Function name must be grade.; It takes a single parameter named score (integer or float).; Write the solution in Python.\n- Edge Case Handling: Correctly handle scores exactly on the boundaries 90, 80, 70, and 60.; Return 'F' for any score below 60, including values like 59.\n- Output Formatting: Return a single character string: 'A', 'B', 'C', 'D', or 'F'.\n- Avoiding Default Biases: Do not use a default return of 'A' or assume scores are always integers.",
+  "sample_tests": [
+    {
+      "input": "95",
+      "expected": "'A'"
+    },
+    {
+      "input": "85",
+      "expected": "'B'"
+    },
+    {
+      "input": "75",
+      "expected": "'C'"
+    },
+    {
+      "input": "55",
+      "expected": "'F'"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "90",
+      "expected": "'A'",
+      "edge_label": "boundary_90"
+    },
+    {
+      "input": "80",
+      "expected": "'B'",
+      "edge_label": "boundary_80"
+    },
+    {
+      "input": "70",
+      "expected": "'C'",
+      "edge_label": "boundary_70"
+    },
+    {
+      "input": "60",
+      "expected": "'D'",
+      "edge_label": "boundary_60"
+    },
+    {
+      "input": "59",
+      "expected": "'F'",
+      "edge_label": "just_below_60"
+    }
+  ],
+  "reference_solution": "def grade(score):\n    if score >= 90:\n        return 'A'\n    elif score >= 80:\n        return 'B'\n    elif score >= 70:\n        return 'C'\n    elif score >= 60:\n        return 'D'\n    else:\n        return 'F'",
+  "reference_prompt": "Write a Python function named grade that accepts one argument called score (which may be an integer or a float). The function should return a single\u2011character string representing the letter grade according to this scale: if score is 90 or higher return 'A'; else if score is 80 or higher return 'B'; else if score is 70 or higher return 'C'; else if score is 60 or higher return 'D'; otherwise return 'F'. Make sure to handle boundary values exactly (90, 80, 70, 60) and any score below 60.",
+  "reference_code": "def grade(score):\n    if score >= 90:\n        return 'A'\n    elif score >= 80:\n        return 'B'\n    elif score >= 70:\n        return 'C'\n    elif score >= 60:\n        return 'D'\n    else:\n        return 'F'"
+}

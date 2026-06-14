@@ -1,0 +1,48 @@
+{
+  "id": "P014",
+  "problem_description": "Create a function that calculates base raised to the power of exp by repeatedly multiplying, using a loop. The exponent will always be a non\u2011negative integer.",
+  "requirements": "- Logical Decomposition: Initialize a result variable to 1.; Loop exactly exp times, multiplying the result by base each iteration.; Return the final result.\n- Implementation Specifications: Function name must be power.; Parameters: base (numeric), exp (non\u2011negative integer).; Write the solution in Python.; Do not use the ** operator or the built\u2011in pow function.\n- Edge Case Handling: When exp is 0, return 1 (including the case 0^0).; When base is 0 and exp > 0, return 0.\n- Output Formatting: Return an integer or float representing base**exp.\n- Avoiding Default Biases: Do not rely on Python's exponentiation operator; implement the loop explicitly.",
+  "sample_tests": [
+    {
+      "input": "2, 3",
+      "expected": "8"
+    },
+    {
+      "input": "5, 0",
+      "expected": "1"
+    },
+    {
+      "input": "3, 4",
+      "expected": "81"
+    },
+    {
+      "input": "10, 2",
+      "expected": "100"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "0, 0",
+      "expected": "1",
+      "edge_label": "zero_to_zero"
+    },
+    {
+      "input": "0, 5",
+      "expected": "0",
+      "edge_label": "zero_base"
+    },
+    {
+      "input": "1, 100",
+      "expected": "1",
+      "edge_label": "one_base_large_exp"
+    },
+    {
+      "input": "2, 10",
+      "expected": "1024",
+      "edge_label": "large_exponent"
+    }
+  ],
+  "reference_solution": "def power(base, exp):\n    result = 1\n    for _ in range(exp):\n        result *= base\n    return result",
+  "reference_prompt": "Write a Python function named power that takes two arguments: base (a number) and exp (a non\u2011negative integer). The function must compute base raised to the power exp by using a loop that multiplies a result variable by base exactly exp times. Do not use the ** operator or the built\u2011in pow function. Return the final result. Ensure the function correctly handles the edge cases where exp is 0 (return 1, even for 0^0) and where base is 0 with a positive exponent (return 0).",
+  "reference_code": "def power(base, exp):\n    result = 1\n    for _ in range(exp):\n        result *= base\n    return result"
+}

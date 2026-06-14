@@ -1,0 +1,271 @@
+[
+  {
+    "id": "P002",
+    "primary_kp_label": "string methods in python",
+    "statement": "Write a function is_palindrome(text) that returns True if the given string reads the same forwards and backwards, ignoring spaces and case. Otherwise return False.",
+    "function_signature": "is_palindrome(text)",
+    "sample_tests": [
+      {"input": "'racecar'", "expected": "True"},
+      {"input": "'hello'", "expected": "False"},
+      {"input": "'A man a plan a canal Panama'", "expected": "True"},
+      {"input": "'Python'", "expected": "False"}
+    ],
+    "hidden_tests": [
+      {"input": "''", "expected": "True", "edge_label": "empty_string"},
+      {"input": "'a'", "expected": "True", "edge_label": "single_char"},
+      {"input": "'No lemon no melon'", "expected": "True", "edge_label": "spaces_and_case"},
+      {"input": "'Was it a car or a cat I saw'", "expected": "True", "edge_label": "long_palindrome"}
+    ],
+    "reference_solution": "def is_palindrome(text):\n    cleaned = text.replace(' ', '').lower()\n    return cleaned == cleaned[::-1]"
+  },
+  {
+    "id": "P003",
+    "primary_kp_label": "arithmetic operators in python",
+    "statement": "Write a function digit_sum(n) that returns the sum of all digits of a given non-negative integer. For example, digit_sum(123) returns 6 (1+2+3).",
+    "function_signature": "digit_sum(n)",
+    "sample_tests": [
+      {"input": "123", "expected": "6"},
+      {"input": "0", "expected": "0"},
+      {"input": "999", "expected": "27"},
+      {"input": "10", "expected": "1"}
+    ],
+    "hidden_tests": [
+      {"input": "1", "expected": "1", "edge_label": "single_digit"},
+      {"input": "100", "expected": "1", "edge_label": "trailing_zeros"},
+      {"input": "9999", "expected": "36", "edge_label": "large_number"},
+      {"input": "1000000", "expected": "1", "edge_label": "one_with_zeros"}
+    ],
+    "reference_solution": "def digit_sum(n):\n    return sum(int(d) for d in str(n))"
+  },
+  {
+    "id": "P004",
+    "primary_kp_label": "conditional statements in python",
+    "statement": "Write a function grade(score) that returns a letter grade based on a numeric score. Scores 90 and above return 'A', 80-89 return 'B', 70-79 return 'C', 60-69 return 'D', and below 60 return 'F'.",
+    "function_signature": "grade(score)",
+    "sample_tests": [
+      {"input": "95", "expected": "'A'"},
+      {"input": "85", "expected": "'B'"},
+      {"input": "75", "expected": "'C'"},
+      {"input": "55", "expected": "'F'"}
+    ],
+    "hidden_tests": [
+      {"input": "90", "expected": "'A'", "edge_label": "boundary_90"},
+      {"input": "80", "expected": "'B'", "edge_label": "boundary_80"},
+      {"input": "70", "expected": "'C'", "edge_label": "boundary_70"},
+      {"input": "60", "expected": "'D'", "edge_label": "boundary_60"},
+      {"input": "59", "expected": "'F'", "edge_label": "just_below_60"}
+    ],
+    "reference_solution": "def grade(score):\n    if score >= 90:\n        return 'A'\n    elif score >= 80:\n        return 'B'\n    elif score >= 70:\n        return 'C'\n    elif score >= 60:\n        return 'D'\n    else:\n        return 'F'"
+  },
+  {
+    "id": "P005",
+    "primary_kp_label": "list methods in python",
+    "statement": "Write a function second_largest(numbers) that returns the second largest unique number in a list of integers. If the list has fewer than 2 unique numbers, return None.",
+    "function_signature": "second_largest(numbers)",
+    "sample_tests": [
+      {"input": "[3, 1, 4, 1, 5, 9, 2, 6]", "expected": "6"},
+      {"input": "[1, 1, 1]", "expected": "None"},
+      {"input": "[5, 3]", "expected": "3"},
+      {"input": "[10, 20, 30]", "expected": "20"}
+    ],
+    "hidden_tests": [
+      {"input": "[]", "expected": "None", "edge_label": "empty_list"},
+      {"input": "[1]", "expected": "None", "edge_label": "single_element"},
+      {"input": "[-1, -2, -3]", "expected": "-2", "edge_label": "all_negative"},
+      {"input": "[5, 5, 4]", "expected": "4", "edge_label": "duplicates_at_max"}
+    ],
+    "reference_solution": "def second_largest(numbers):\n    unique = list(set(numbers))\n    if len(unique) < 2:\n        return None\n    unique.sort(reverse=True)\n    return unique[1]"
+  },
+  {
+    "id": "P006",
+    "primary_kp_label": "string methods in python",
+    "statement": "Write a function count_vowels(text) that returns the number of vowels (a, e, i, o, u) in a string, counting both uppercase and lowercase vowels.",
+    "function_signature": "count_vowels(text)",
+    "sample_tests": [
+      {"input": "'hello'", "expected": "2"},
+      {"input": "'PYTHON'", "expected": "1"},
+      {"input": "'aeiou'", "expected": "5"},
+      {"input": "'rhythm'", "expected": "0"}
+    ],
+    "hidden_tests": [
+      {"input": "''", "expected": "0", "edge_label": "empty_string"},
+      {"input": "'AeIoU'", "expected": "5", "edge_label": "mixed_case_all_vowels"},
+      {"input": "'bcdfg'", "expected": "0", "edge_label": "no_vowels"},
+      {"input": "'Hello World'", "expected": "3", "edge_label": "with_spaces"}
+    ],
+    "reference_solution": "def count_vowels(text):\n    return sum(1 for c in text.lower() if c in 'aeiou')"
+  },
+  {
+    "id": "P007",
+    "primary_kp_label": "list methods in python",
+    "statement": "Write a function flatten(nested) that takes a list of lists and returns a single flat list containing all elements in order.",
+    "function_signature": "flatten(nested)",
+    "sample_tests": [
+      {"input": "[[1, 2], [3, 4], [5]]", "expected": "[1, 2, 3, 4, 5]"},
+      {"input": "[[1], [2], [3]]", "expected": "[1, 2, 3]"},
+      {"input": "[[], [1, 2], []]", "expected": "[1, 2]"},
+      {"input": "[[1, 2, 3]]", "expected": "[1, 2, 3]"}
+    ],
+    "hidden_tests": [
+      {"input": "[]", "expected": "[]", "edge_label": "empty_outer"},
+      {"input": "[[], [], []]", "expected": "[]", "edge_label": "all_empty_inner"},
+      {"input": "[[1]]", "expected": "[1]", "edge_label": "single_element"},
+      {"input": "[[1, 2], [3, 4], [5, 6]]", "expected": "[1, 2, 3, 4, 5, 6]", "edge_label": "equal_sublists"}
+    ],
+    "reference_solution": "def flatten(nested):\n    return [item for sublist in nested for item in sublist]"
+  },
+  {
+    "id": "P008",
+    "primary_kp_label": "arithmetic operators in python",
+    "statement": "Write a function is_prime(n) that returns True if n is a prime number and False otherwise. A prime number is a positive integer greater than 1 that has no divisors other than 1 and itself.",
+    "function_signature": "is_prime(n)",
+    "sample_tests": [
+      {"input": "7", "expected": "True"},
+      {"input": "4", "expected": "False"},
+      {"input": "2", "expected": "True"},
+      {"input": "1", "expected": "False"}
+    ],
+    "hidden_tests": [
+      {"input": "0", "expected": "False", "edge_label": "zero"},
+      {"input": "3", "expected": "True", "edge_label": "smallest_odd_prime"},
+      {"input": "9", "expected": "False", "edge_label": "perfect_square"},
+      {"input": "97", "expected": "True", "edge_label": "large_prime"}
+    ],
+    "reference_solution": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True"
+  },
+  {
+    "id": "P009",
+    "primary_kp_label": "string methods in python",
+    "statement": "Write a function reverse_words(sentence) that returns the sentence with the order of words reversed, but each word itself remains unchanged. Words are separated by single spaces.",
+    "function_signature": "reverse_words(sentence)",
+    "sample_tests": [
+      {"input": "'Hello World'", "expected": "'World Hello'"},
+      {"input": "'I love Python'", "expected": "'Python love I'"},
+      {"input": "'one'", "expected": "'one'"},
+      {"input": "'a b c'", "expected": "'c b a'"}
+    ],
+    "hidden_tests": [
+      {"input": "''", "expected": "''", "edge_label": "empty_string"},
+      {"input": "'single'", "expected": "'single'", "edge_label": "single_word"},
+      {"input": "'Hello World'", "expected": "'World Hello'", "edge_label": "two_words"},
+      {"input": "'the quick brown fox'", "expected": "'fox brown quick the'", "edge_label": "four_words"}
+    ],
+    "reference_solution": "def reverse_words(sentence):\n    return ' '.join(sentence.split()[::-1])"
+  },
+  {
+    "id": "P010",
+    "primary_kp_label": "list methods in python",
+    "statement": "Write a function remove_duplicates(items) that returns a new list with all duplicate values removed, keeping only the first occurrence of each value. The order of remaining elements must be preserved.",
+    "function_signature": "remove_duplicates(items)",
+    "sample_tests": [
+      {"input": "[1, 2, 3, 2, 1]", "expected": "[1, 2, 3]"},
+      {"input": "[1, 1, 1, 1]", "expected": "[1]"},
+      {"input": "['a', 'b', 'a', 'c']", "expected": "['a', 'b', 'c']"},
+      {"input": "[1, 2, 3]", "expected": "[1, 2, 3]"}
+    ],
+    "hidden_tests": [
+      {"input": "[]", "expected": "[]", "edge_label": "empty_list"},
+      {"input": "[1]", "expected": "[1]", "edge_label": "single_element"},
+      {"input": "[3, 1, 2, 1, 3]", "expected": "[3, 1, 2]", "edge_label": "preserves_first_occurrence"},
+      {"input": "[1, 2, 3, 4, 5]", "expected": "[1, 2, 3, 4, 5]", "edge_label": "no_duplicates"}
+    ],
+    "reference_solution": "def remove_duplicates(items):\n    seen = []\n    for item in items:\n        if item not in seen:\n            seen.append(item)\n    return seen"
+  },
+  {
+    "id": "P011",
+    "primary_kp_label": "conditional statements in python",
+    "statement": "Write a function fizzbuzz(n) that returns 'Fizz' if n is divisible by 3, 'Buzz' if divisible by 5, 'FizzBuzz' if divisible by both 3 and 5, and the number itself as a string otherwise.",
+    "function_signature": "fizzbuzz(n)",
+    "sample_tests": [
+      {"input": "15", "expected": "'FizzBuzz'"},
+      {"input": "9", "expected": "'Fizz'"},
+      {"input": "10", "expected": "'Buzz'"},
+      {"input": "7", "expected": "'7'"}
+    ],
+    "hidden_tests": [
+      {"input": "1", "expected": "'1'", "edge_label": "not_divisible"},
+      {"input": "3", "expected": "'Fizz'", "edge_label": "boundary_3"},
+      {"input": "5", "expected": "'Buzz'", "edge_label": "boundary_5"},
+      {"input": "30", "expected": "'FizzBuzz'", "edge_label": "large_fizzbuzz"},
+      {"input": "0", "expected": "'FizzBuzz'", "edge_label": "zero"}
+    ],
+    "reference_solution": "def fizzbuzz(n):\n    if n % 15 == 0:\n        return 'FizzBuzz'\n    elif n % 3 == 0:\n        return 'Fizz'\n    elif n % 5 == 0:\n        return 'Buzz'\n    else:\n        return str(n)"
+  },
+  {
+    "id": "P012",
+    "primary_kp_label": "list methods in python",
+    "statement": "Write a function rotate_list(items, k) that returns a new list rotated to the right by k positions. Elements shifted off the right end wrap around to the left.",
+    "function_signature": "rotate_list(items, k)",
+    "sample_tests": [
+      {"input": "[1, 2, 3, 4, 5], 2", "expected": "[4, 5, 1, 2, 3]"},
+      {"input": "[1, 2, 3], 1", "expected": "[3, 1, 2]"},
+      {"input": "[1, 2, 3], 0", "expected": "[1, 2, 3]"},
+      {"input": "[1, 2, 3], 3", "expected": "[1, 2, 3]"}
+    ],
+    "hidden_tests": [
+      {"input": "[], 2", "expected": "[]", "edge_label": "empty_list"},
+      {"input": "[1], 5", "expected": "[1]", "edge_label": "single_element"},
+      {"input": "[1, 2, 3], 4", "expected": "[3, 1, 2]", "edge_label": "k_greater_than_length"},
+      {"input": "[1, 2, 3, 4], 2", "expected": "[3, 4, 1, 2]", "edge_label": "even_split"}
+    ],
+    "reference_solution": "def rotate_list(items, k):\n    if not items:\n        return []\n    k = k % len(items)\n    return items[-k:] + items[:-k] if k else items[:]"
+  },
+  {
+    "id": "P013",
+    "primary_kp_label": "string methods in python",
+    "statement": "Write a function is_anagram(word1, word2) that returns True if word1 and word2 are anagrams of each other (contain the same letters in any order, case-insensitive), and False otherwise.",
+    "function_signature": "is_anagram(word1, word2)",
+    "sample_tests": [
+      {"input": "'listen', 'silent'", "expected": "True"},
+      {"input": "'hello', 'world'", "expected": "False"},
+      {"input": "'Triangle', 'Integral'", "expected": "True"},
+      {"input": "'abc', 'cab'", "expected": "True"}
+    ],
+    "hidden_tests": [
+      {"input": "'', ''", "expected": "True", "edge_label": "both_empty"},
+      {"input": "'a', 'a'", "expected": "True", "edge_label": "single_char_same"},
+      {"input": "'abc', 'abcd'", "expected": "False", "edge_label": "different_lengths"},
+      {"input": "'Astronomer', 'Moon starer'", "expected": "False", "edge_label": "with_spaces"}
+    ],
+    "reference_solution": "def is_anagram(word1, word2):\n    return sorted(word1.lower()) == sorted(word2.lower())"
+  },
+  {
+    "id": "P014",
+    "primary_kp_label": "arithmetic operators in python",
+    "statement": "Write a function power(base, exp) that returns base raised to the power of exp using a loop (not the ** operator or built-in pow function). The exponent is always a non-negative integer.",
+    "function_signature": "power(base, exp)",
+    "sample_tests": [
+      {"input": "2, 3", "expected": "8"},
+      {"input": "5, 0", "expected": "1"},
+      {"input": "3, 4", "expected": "81"},
+      {"input": "10, 2", "expected": "100"}
+    ],
+    "hidden_tests": [
+      {"input": "0, 0", "expected": "1", "edge_label": "zero_to_zero"},
+      {"input": "0, 5", "expected": "0", "edge_label": "zero_base"},
+      {"input": "1, 100", "expected": "1", "edge_label": "one_base_large_exp"},
+      {"input": "2, 10", "expected": "1024", "edge_label": "large_exponent"}
+    ],
+    "reference_solution": "def power(base, exp):\n    result = 1\n    for _ in range(exp):\n        result *= base\n    return result"
+  },
+  {
+    "id": "P015",
+    "primary_kp_label": "conditional statements in python",
+    "statement": "Write a function bmi_category(weight_kg, height_m) that returns the BMI category as a string. BMI = weight / height^2. Categories: below 18.5 is 'Underweight', 18.5 to 24.9 is 'Normal', 25 to 29.9 is 'Overweight', 30 and above is 'Obese'.",
+    "function_signature": "bmi_category(weight_kg, height_m)",
+    "sample_tests": [
+      {"input": "50, 1.7", "expected": "'Underweight'"},
+      {"input": "70, 1.75", "expected": "'Normal'"},
+      {"input": "85, 1.75", "expected": "'Overweight'"},
+      {"input": "100, 1.75", "expected": "'Obese'"}
+    ],
+    "hidden_tests": [
+      {"input": "46.7, 1.6", "expected": "'Underweight'", "edge_label": "boundary_underweight"},
+      {"input": "47.5, 1.6", "expected": "'Normal'", "edge_label": "boundary_normal_low"},
+      {"input": "64.0, 1.6", "expected": "'Normal'", "edge_label": "boundary_normal_high"},
+      {"input": "64.1, 1.6", "expected": "'Overweight'", "edge_label": "boundary_overweight"},
+      {"input": "76.9, 1.6", "expected": "'Obese'", "edge_label": "boundary_obese"}
+    ],
+    "reference_solution": "def bmi_category(weight_kg, height_m):\n    bmi = weight_kg / (height_m ** 2)\n    if bmi < 18.5:\n        return 'Underweight'\n    elif bmi < 25:\n        return 'Normal'\n    elif bmi < 30:\n        return 'Overweight'\n    else:\n        return 'Obese'"
+  }
+]

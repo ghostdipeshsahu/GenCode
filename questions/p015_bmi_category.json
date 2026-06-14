@@ -1,0 +1,53 @@
+{
+  "id": "P015",
+  "problem_description": "Create a function that calculates a person's Body Mass Index (BMI) from their weight in kilograms and height in meters, then returns the appropriate BMI category as a string.",
+  "requirements": "- Logical Decomposition: Compute BMI using weight divided by height squared.; Compare the BMI against the defined thresholds to select the correct category.\n- Implementation Specifications: Function name: bmi_category; Parameters: weight_kg (float or int), height_m (float or int); Language: Python; Return type: string exactly one of 'Underweight', 'Normal', 'Overweight', 'Obese'\n- Edge Case Handling: Handle BMI values exactly on the boundary values (18.5, 25, 30) according to the specified intervals.\n- Output Formatting: Return the category string without extra whitespace or punctuation.\n- Avoiding Default Biases: Do not round or format the BMI; use direct comparisons with the thresholds.",
+  "sample_tests": [
+    {
+      "input": "50, 1.7",
+      "expected": "'Underweight'"
+    },
+    {
+      "input": "70, 1.75",
+      "expected": "'Normal'"
+    },
+    {
+      "input": "85, 1.75",
+      "expected": "'Overweight'"
+    },
+    {
+      "input": "100, 1.75",
+      "expected": "'Obese'"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "46.7, 1.6",
+      "expected": "'Underweight'",
+      "edge_label": "boundary_underweight"
+    },
+    {
+      "input": "47.5, 1.6",
+      "expected": "'Normal'",
+      "edge_label": "boundary_normal_low"
+    },
+    {
+      "input": "64.0, 1.6",
+      "expected": "'Normal'",
+      "edge_label": "boundary_normal_high"
+    },
+    {
+      "input": "64.1, 1.6",
+      "expected": "'Overweight'",
+      "edge_label": "boundary_overweight"
+    },
+    {
+      "input": "76.9, 1.6",
+      "expected": "'Obese'",
+      "edge_label": "boundary_obese"
+    }
+  ],
+  "reference_solution": "def bmi_category(weight_kg, height_m):\n    bmi = weight_kg / (height_m ** 2)\n    if bmi < 18.5:\n        return 'Underweight'\n    elif bmi < 25:\n        return 'Normal'\n    elif bmi < 30:\n        return 'Overweight'\n    else:\n        return 'Obese'",
+  "reference_prompt": "Write a Python function named bmi_category that takes two arguments, weight_kg and height_m. Inside the function, calculate the BMI as weight_kg divided by height_m squared. Then use conditional statements to return the correct category string: return 'Underweight' if BMI is less than 18.5, return 'Normal' if BMI is at least 18.5 but less than 25, return 'Overweight' if BMI is at least 25 but less than 30, and return 'Obese' for BMI 30 or higher. The function should return exactly one of these four strings and nothing else.",
+  "reference_code": "def bmi_category(weight_kg, height_m):\n    bmi = weight_kg / (height_m ** 2)\n    if bmi < 18.5:\n        return 'Underweight'\n    elif bmi < 25:\n        return 'Normal'\n    elif bmi < 30:\n        return 'Overweight'\n    else:\n        return 'Obese'"
+}

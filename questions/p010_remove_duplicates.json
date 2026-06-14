@@ -1,0 +1,48 @@
+{
+  "id": "P010",
+  "problem_description": "Create a function that takes a list and returns a new list containing each value only once, keeping the first time each value appears. The order of the remaining items must stay the same as in the original list.",
+  "requirements": "- Logical Decomposition: Iterate through the input list from left to right.; Keep a record of values that have already been seen.; Add a value to the result list only if it has not been seen before.\n- Implementation Specifications: Function name: remove_duplicates; Parameter: items (a list); Language: Python; Return a new list; do not modify the original list\n- Edge Case Handling: Handle an empty list by returning an empty list; Handle a list with a single element by returning a list with that element\n- Output Formatting: Return a list object containing the filtered elements\n- Avoiding Default Biases: Do not use set() because it would change the order of elements",
+  "sample_tests": [
+    {
+      "input": "[1, 2, 3, 2, 1]",
+      "expected": "[1, 2, 3]"
+    },
+    {
+      "input": "[1, 1, 1, 1]",
+      "expected": "[1]"
+    },
+    {
+      "input": "['a', 'b', 'a', 'c']",
+      "expected": "['a', 'b', 'c']"
+    },
+    {
+      "input": "[1, 2, 3]",
+      "expected": "[1, 2, 3]"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "[]",
+      "expected": "[]",
+      "edge_label": "empty_list"
+    },
+    {
+      "input": "[1]",
+      "expected": "[1]",
+      "edge_label": "single_element"
+    },
+    {
+      "input": "[3, 1, 2, 1, 3]",
+      "expected": "[3, 1, 2]",
+      "edge_label": "preserves_first_occurrence"
+    },
+    {
+      "input": "[1, 2, 3, 4, 5]",
+      "expected": "[1, 2, 3, 4, 5]",
+      "edge_label": "no_duplicates"
+    }
+  ],
+  "reference_solution": "def remove_duplicates(items):\n    seen = []\n    for item in items:\n        if item not in seen:\n            seen.append(item)\n    return seen",
+  "reference_prompt": "Write a Python function named remove_duplicates that takes a single argument items, which is a list. The function should iterate over items from left to right, keep track of values that have already been encountered, and build a new list containing each value only the first time it appears. Preserve the original order of the first occurrences, and return this new list without modifying the input list. Ensure the function correctly handles empty lists and single\u2011element lists. Do not use the set data type, because it would reorder the elements.",
+  "reference_code": "def remove_duplicates(items):\n    seen = []\n    for item in items:\n        if item not in seen:\n            seen.append(item)\n    return seen"
+}

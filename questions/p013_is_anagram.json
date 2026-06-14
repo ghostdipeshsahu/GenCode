@@ -1,0 +1,48 @@
+{
+  "id": "P013",
+  "problem_description": "Create a function that checks whether two given words are anagrams of each other. The function should ignore letter case and return True when the words contain exactly the same letters in any order, otherwise False.",
+  "requirements": "- Logical Decomposition: Convert both inputs to the same case to ignore case differences.; Compare the sorted sequences of characters from each input.; Return the comparison result as a Boolean.\n- Implementation Specifications: Function name: is_anagram; Parameters: word1, word2 (both strings); Language: Python; No additional libraries required\n- Edge Case Handling: If the strings have different lengths, return False.; Empty strings should be considered anagrams and return True.; Spaces are treated as normal characters, so strings with spaces are not anagrams unless the spaces match exactly.\n- Output Formatting: Return a Boolean value (True or False).\n- Avoiding Default Biases: Do not assume inputs are already lower\u2011case; explicitly normalize case.; Do not ignore spaces or punctuation; compare characters exactly after case normalization.",
+  "sample_tests": [
+    {
+      "input": "'listen', 'silent'",
+      "expected": "True"
+    },
+    {
+      "input": "'hello', 'world'",
+      "expected": "False"
+    },
+    {
+      "input": "'Triangle', 'Integral'",
+      "expected": "True"
+    },
+    {
+      "input": "'abc', 'cab'",
+      "expected": "True"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "'', ''",
+      "expected": "True",
+      "edge_label": "both_empty"
+    },
+    {
+      "input": "'a', 'a'",
+      "expected": "True",
+      "edge_label": "single_char_same"
+    },
+    {
+      "input": "'abc', 'abcd'",
+      "expected": "False",
+      "edge_label": "different_lengths"
+    },
+    {
+      "input": "'Astronomer', 'Moon starer'",
+      "expected": "False",
+      "edge_label": "with_spaces"
+    }
+  ],
+  "reference_solution": "def is_anagram(word1, word2):\n    return sorted(word1.lower()) == sorted(word2.lower())",
+  "reference_prompt": "Write a Python function named is_anagram that takes two string arguments, word1 and word2. The function should return True if the two strings are anagrams of each other and False otherwise. An anagram means the strings contain exactly the same characters in any order, ignoring case but not ignoring spaces or other characters. First, convert both strings to lower\u2011case. Then, if their lengths differ, immediately return False. Otherwise, sort the characters of each lowered string and compare the sorted results, returning the Boolean outcome of that comparison.",
+  "reference_code": "def is_anagram(word1, word2):\n    w1 = word1.lower()\n    w2 = word2.lower()\n    if len(w1) != len(w2):\n        return False\n    return sorted(w1) == sorted(w2)"
+}

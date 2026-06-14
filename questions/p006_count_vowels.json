@@ -1,0 +1,48 @@
+{
+  "id": "P006",
+  "problem_description": "Create a function that receives a text string and counts how many vowel letters (a, e, i, o, u) appear in it, treating uppercase and lowercase the same.",
+  "requirements": "- Logical Decomposition: Iterate over each character in the input string.; Convert characters to a common case or compare case\u2011insensitively.; Check if the character is one of the five vowels.; Accumulate a total count of vowel characters.\n- Implementation Specifications: Function name must be count_vowels.; It takes a single parameter named text.; Write the solution in Python.; Return the count as an integer.\n- Edge Case Handling: Return 0 for an empty string.; Correctly count vowels when the string contains mixed case letters.; Handle strings with no vowels, spaces, or other non\u2011letter characters.\n- Output Formatting: The function should return an int, not print anything.\n- Avoiding Default Biases: Do not assume the input contains only letters; ignore non\u2011vowel characters.",
+  "sample_tests": [
+    {
+      "input": "'hello'",
+      "expected": "2"
+    },
+    {
+      "input": "'PYTHON'",
+      "expected": "1"
+    },
+    {
+      "input": "'aeiou'",
+      "expected": "5"
+    },
+    {
+      "input": "'rhythm'",
+      "expected": "0"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "''",
+      "expected": "0",
+      "edge_label": "empty_string"
+    },
+    {
+      "input": "'AeIoU'",
+      "expected": "5",
+      "edge_label": "mixed_case_all_vowels"
+    },
+    {
+      "input": "'bcdfg'",
+      "expected": "0",
+      "edge_label": "no_vowels"
+    },
+    {
+      "input": "'Hello World'",
+      "expected": "3",
+      "edge_label": "with_spaces"
+    }
+  ],
+  "reference_solution": "def count_vowels(text):\n    return sum(1 for c in text.lower() if c in 'aeiou')",
+  "reference_prompt": "Write a Python function named count_vowels that takes a single argument text (a string). The function should return an integer representing how many characters in text are vowels (a, e, i, o, u), counting both uppercase and lowercase letters. It must correctly handle empty strings, mixed\u2011case input, spaces, and any other non\u2011vowel characters, returning 0 when no vowels are present. Do not print anything; just return the count.",
+  "reference_code": "def count_vowels(text):\n    return sum(1 for c in text.lower() if c in 'aeiou')"
+}

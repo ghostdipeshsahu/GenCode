@@ -1,0 +1,48 @@
+{
+  "id": "P012",
+  "problem_description": "Create a function that takes a list and an integer k, and returns a new list where the elements are shifted to the right by k positions. Elements that move past the end should reappear at the beginning.",
+  "requirements": "- Logical Decomposition: Compute the effective rotation by taking k modulo the list length.; If the list is empty, return an empty list immediately.; Slice the list to obtain the last k elements and the remaining front part.; Concatenate the sliced parts in the correct order to form the rotated list.\n- Implementation Specifications: Function name must be rotate_list.; Parameters: items (list), k (int).; Language: Python.; Do not modify the original list; return a new list.\n- Edge Case Handling: Handle empty list correctly.; Handle k equal to 0 or a multiple of the list length.; Handle k larger than the list length by using modulo.; Handle single-element lists.\n- Output Formatting: Return a list object with the rotated order.\n- Avoiding Default Biases: Do not use built\u2011in rotate functions or external libraries; implement using slicing.",
+  "sample_tests": [
+    {
+      "input": "[1, 2, 3, 4, 5], 2",
+      "expected": "[4, 5, 1, 2, 3]"
+    },
+    {
+      "input": "[1, 2, 3], 1",
+      "expected": "[3, 1, 2]"
+    },
+    {
+      "input": "[1, 2, 3], 0",
+      "expected": "[1, 2, 3]"
+    },
+    {
+      "input": "[1, 2, 3], 3",
+      "expected": "[1, 2, 3]"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "[], 2",
+      "expected": "[]",
+      "edge_label": "empty_list"
+    },
+    {
+      "input": "[1], 5",
+      "expected": "[1]",
+      "edge_label": "single_element"
+    },
+    {
+      "input": "[1, 2, 3], 4",
+      "expected": "[3, 1, 2]",
+      "edge_label": "k_greater_than_length"
+    },
+    {
+      "input": "[1, 2, 3, 4], 2",
+      "expected": "[3, 4, 1, 2]",
+      "edge_label": "even_split"
+    }
+  ],
+  "reference_solution": "def rotate_list(items, k):\n    if not items:\n        return []\n    k = k % len(items)\n    return items[-k:] + items[:-k] if k else items[:]",
+  "reference_prompt": "Write a Python function named rotate_list that takes two arguments: items, a list of any elements, and k, an integer. The function must return a new list that is the original list rotated to the right by k positions, wrapping elements that fall off the right end to the left. Follow these steps: 1) If items is empty, immediately return an empty list. 2) Compute the effective rotation as k modulo the length of items. 3) If the effective rotation is zero, return a shallow copy of items (or items itself). 4) Otherwise, slice the list to get the last 'effective rotation' elements and the first part, then concatenate them in that order to produce the result. Do not modify the input list and do not use any external libraries or built\u2011in rotate helpers; use only list slicing. The function should be defined as `def rotate_list(items, k):` and return a list.",
+  "reference_code": "def rotate_list(items, k):\n    if not items:\n        return []\n    k = k % len(items)\n    return items[-k:] + items[:-k] if k else items[:]"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "P002",
+  "problem_description": "Create a function that checks whether a given string reads the same forward and backward, ignoring spaces and case differences. The function should return True for palindromes and False otherwise.",
+  "requirements": "- Logical Decomposition: Remove all spaces from the input string.; Convert the string to a single case (e.g., lower case).; Compare the cleaned string with its reverse to determine if it is a palindrome.\n- Implementation Specifications: Function name must be is_palindrome.; It takes a single parameter named text (a string).; Write the solution in Python.\n- Edge Case Handling: An empty string should be considered a palindrome and return True.; A single\u2011character string should return True.\n- Output Formatting: Return a Boolean value: True if the cleaned string is a palindrome, otherwise False.\n- Avoiding Default Biases: Do not consider punctuation or other whitespace characters; only spaces are removed.; Do not alter the original string beyond removing spaces and changing case.",
+  "sample_tests": [
+    {
+      "input": "'racecar'",
+      "expected": "True"
+    },
+    {
+      "input": "'hello'",
+      "expected": "False"
+    },
+    {
+      "input": "'A man a plan a canal Panama'",
+      "expected": "True"
+    },
+    {
+      "input": "'Python'",
+      "expected": "False"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "''",
+      "expected": "True",
+      "edge_label": "empty_string"
+    },
+    {
+      "input": "'a'",
+      "expected": "True",
+      "edge_label": "single_char"
+    },
+    {
+      "input": "'No lemon no melon'",
+      "expected": "True",
+      "edge_label": "spaces_and_case"
+    },
+    {
+      "input": "'Was it a car or a cat I saw'",
+      "expected": "True",
+      "edge_label": "long_palindrome"
+    }
+  ],
+  "reference_solution": "def is_palindrome(text):\n    cleaned = text.replace(' ', '').lower()\n    return cleaned == cleaned[::-1]",
+  "reference_prompt": "Write a Python function named is_palindrome that takes one argument, text (a string). The function should ignore all space characters and treat letters case\u2011insensitively. After removing spaces and converting the string to lower case, return True if the resulting string is exactly the same when read forwards and backwards; otherwise return False. Ensure that an empty string and any single\u2011character string are handled correctly and return True. Do not consider punctuation or other whitespace characters.",
+  "reference_code": "def is_palindrome(text):\n    cleaned = text.replace(' ', '').lower()\n    return cleaned == cleaned[::-1]"
+}

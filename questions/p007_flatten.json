@@ -1,0 +1,48 @@
+{
+  "id": "P007",
+  "problem_description": "Create a function called flatten that receives a list of lists and returns a new list containing all the inner elements in the same order, without any nesting.",
+  "requirements": "- Logical Decomposition: Iterate over each sub\u2011list in the outer list.; Collect every element from each sub\u2011list preserving order.\n- Implementation Specifications: Function name must be flatten.; It takes a single parameter named nested.; Write the solution in Python.; Do not modify the input list.\n- Edge Case Handling: Return an empty list when the outer list is empty.; Handle inner lists that are empty.\n- Output Formatting: Return a flat Python list of the collected elements.\n- Avoiding Default Biases: Do not use recursion or external libraries; a simple list comprehension is sufficient.",
+  "sample_tests": [
+    {
+      "input": "[[1, 2], [3, 4], [5]]",
+      "expected": "[1, 2, 3, 4, 5]"
+    },
+    {
+      "input": "[[1], [2], [3]]",
+      "expected": "[1, 2, 3]"
+    },
+    {
+      "input": "[[], [1, 2], []]",
+      "expected": "[1, 2]"
+    },
+    {
+      "input": "[[1, 2, 3]]",
+      "expected": "[1, 2, 3]"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "[]",
+      "expected": "[]",
+      "edge_label": "empty_outer"
+    },
+    {
+      "input": "[[], [], []]",
+      "expected": "[]",
+      "edge_label": "all_empty_inner"
+    },
+    {
+      "input": "[[1]]",
+      "expected": "[1]",
+      "edge_label": "single_element"
+    },
+    {
+      "input": "[[1, 2], [3, 4], [5, 6]]",
+      "expected": "[1, 2, 3, 4, 5, 6]",
+      "edge_label": "equal_sublists"
+    }
+  ],
+  "reference_solution": "def flatten(nested):\n    return [item for sublist in nested for item in sublist]",
+  "reference_prompt": "Write a Python function named flatten that takes one argument called nested, which is a list of lists. The function should return a new list containing all the elements from the inner lists in their original order, without altering the original input. Ensure that it works correctly when the outer list is empty or when some inner lists are empty, returning an empty list in those cases. Use a straightforward approach such as a list comprehension and do not import any modules.",
+  "reference_code": "def flatten(nested):\n    return [item for sublist in nested for item in sublist]"
+}

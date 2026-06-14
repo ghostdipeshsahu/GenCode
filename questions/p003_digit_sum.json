@@ -1,0 +1,48 @@
+{
+  "id": "P003",
+  "problem_description": "Create a function called digit_sum that takes a non\u2011negative integer and returns the sum of all its decimal digits. For example, digit_sum(123) should give 6 because 1+2+3 = 6.",
+  "requirements": "- Logical Decomposition: Convert the integer into its individual decimal digits.; Convert each digit back to an integer.; Add all the digit values together and return the total.\n- Implementation Specifications: Function name must be digit_sum.; It must accept a single parameter n, which is a non\u2011negative integer.; The solution must be written in Python.; Do not use any external libraries.\n- Edge Case Handling: Handle n = 0 correctly (return 0).; Handle numbers that end with one or more zeros (e.g., 100 should return 1).; Handle single\u2011digit numbers.\n- Output Formatting: Return the result as an integer.\n- Avoiding Default Biases: Do not assume n is always positive; include the zero case.; Do not use hard\u2011coded examples; the code must work for any non\u2011negative integer.",
+  "sample_tests": [
+    {
+      "input": "123",
+      "expected": "6"
+    },
+    {
+      "input": "0",
+      "expected": "0"
+    },
+    {
+      "input": "999",
+      "expected": "27"
+    },
+    {
+      "input": "10",
+      "expected": "1"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "1",
+      "expected": "1",
+      "edge_label": "single_digit"
+    },
+    {
+      "input": "100",
+      "expected": "1",
+      "edge_label": "trailing_zeros"
+    },
+    {
+      "input": "9999",
+      "expected": "36",
+      "edge_label": "large_number"
+    },
+    {
+      "input": "1000000",
+      "expected": "1",
+      "edge_label": "one_with_zeros"
+    }
+  ],
+  "reference_solution": "def digit_sum(n):\n    return sum(int(d) for d in str(n))",
+  "reference_prompt": "Write a Python function named digit_sum that takes one argument n, a non\u2011negative integer, and returns the sum of its decimal digits as an integer. The implementation should work for any non\u2011negative integer, including 0 and numbers with trailing zeros. Convert the number to a string, iterate over each character, convert each character back to an integer, sum them, and return the total.",
+  "reference_code": "def digit_sum(n):\n    return sum(int(d) for d in str(n))"
+}

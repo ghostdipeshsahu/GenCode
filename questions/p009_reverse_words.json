@@ -1,0 +1,48 @@
+{
+  "id": "P009",
+  "problem_description": "Create a function that takes a sentence and returns a new sentence where the words appear in reverse order, while each individual word stays the same. Words are separated by single spaces.",
+  "requirements": "- Logical Decomposition: Split the input string into its constituent words.; Reverse the list of words.; Join the reversed words back into a single string with single spaces.\n- Implementation Specifications: Function name must be reverse_words.; It takes one parameter named sentence, a string.; Write the solution in Python.; Do not use any external libraries.\n- Edge Case Handling: If the input is an empty string, return an empty string.; If the input contains only one word, return it unchanged.\n- Output Formatting: Return a string where words are separated by a single space and no leading or trailing spaces.\n- Avoiding Default Biases: Do not assume the input always contains multiple words; explicitly handle empty and single\u2011word cases.; Do not add extra spaces before, after, or between words beyond the single\u2011space separator.",
+  "sample_tests": [
+    {
+      "input": "'Hello World'",
+      "expected": "'World Hello'"
+    },
+    {
+      "input": "'I love Python'",
+      "expected": "'Python love I'"
+    },
+    {
+      "input": "'one'",
+      "expected": "'one'"
+    },
+    {
+      "input": "'a b c'",
+      "expected": "'c b a'"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "''",
+      "expected": "''",
+      "edge_label": "empty_string"
+    },
+    {
+      "input": "'single'",
+      "expected": "'single'",
+      "edge_label": "single_word"
+    },
+    {
+      "input": "'Hello World'",
+      "expected": "'World Hello'",
+      "edge_label": "two_words"
+    },
+    {
+      "input": "'the quick brown fox'",
+      "expected": "'fox brown quick the'",
+      "edge_label": "four_words"
+    }
+  ],
+  "reference_solution": "def reverse_words(sentence):\n    return ' '.join(sentence.split()[::-1])",
+  "reference_prompt": "Write a Python function named reverse_words that accepts a single string argument called sentence. The function should split the sentence into words using spaces, reverse the order of the words, and then join them back together with a single space between each word. Make sure to return an empty string when the input is empty, and return the original word unchanged when there is only one word. Do not add any leading or trailing spaces, and do not introduce extra spaces between words. Do not use any external libraries.",
+  "reference_code": "def reverse_words(sentence):\n    return ' '.join(sentence.split()[::-1])"
+}

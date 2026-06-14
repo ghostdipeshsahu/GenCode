@@ -400,40 +400,96 @@ def _assemble(raw: dict, validated: AuthorOutput) -> dict:
 # CLI
 # --------------------------------------------------------------------------- #
 
-def _default_output_path(raw_path: Path, qid: str) -> Path:
-    """Drop the 'raw_' prefix if present, else suffix the id."""
+_QUESTIONS_DIR = _REPO_ROOT / "questions"
+
+
+def _slug_from_signature(sig: str) -> str:
+    """Extract the function name from a signature like 'def is_palindrome(text):'
+    or 'is_palindrome(text)' for use in output filenames.
+    """
+    s = (sig or "").strip()
+    if s.startswith("def "):
+        s = s[4:]
+    paren = s.find("(")
+    if paren > 0:
+        s = s[:paren]
+    return s.strip().lower() or "question"
+
+
+def _default_output_for_id(raw: dict) -> Path:
+    """questions/{id_lower}_{function_name}.json"""
+    slug = _slug_from_signature(raw.get("function_signature", ""))
+    return _QUESTIONS_DIR / f"{raw['id'].lower()}_{slug}.json"
+
+
+def _default_single_output_path(raw_path: Path, qid: str) -> Path:
+    """Single-file mode: drop the 'raw_' prefix if present, else suffix the id."""
     name = raw_path.name
     if name.startswith("raw_"):
         return raw_path.with_name(name[4:])
     return raw_path.with_name(f"{qid.lower()}_enriched.json")
 
 
+def _process_one(raw: dict, out_path: Path) -> bool:
+    """Enrich one raw question and write it. Returns True on success."""
+    try:
+        enriched = enrich(raw)
+        Question(**enriched)  # final sanity check
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(out_path, "w", encoding="utf-8") as f:
+            json.dump(enriched, f, indent=2)
+            f.write("\n")
+        print(f"[author] OK   {raw['id']}  ->  {out_path}", flush=True)
+        return True
+    except Exception as exc:
+        print(f"[author] FAIL {raw['id']}: {type(exc).__name__}: {exc}", flush=True)
+        return False
+
+
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    p.add_argument("raw", type=Path, help="path to raw question JSON")
+    p.add_argument("raw", type=Path, help="path to raw question JSON (object or array with --batch)")
     p.add_argument(
         "-o",
         "--output",
         type=Path,
         default=None,
-        help="path to write enriched JSON (default: drop 'raw_' prefix)",
+        help="path to write enriched JSON (single-file mode only)",
+    )
+    p.add_argument(
+        "--batch",
+        action="store_true",
+        help="raw file is a JSON array of raw questions; write each to "
+        "questions/{id_lower}_{function_name}.json",
     )
     args = p.parse_args()
 
     with open(args.raw, encoding="utf-8") as f:
-        raw = json.load(f)
+        data = json.load(f)
 
-    enriched = enrich(raw)
+    if args.batch:
+        if not isinstance(data, list):
+            print("[author] --batch requires a JSON array at the top level", flush=True)
+            return 2
+        print(f"[author] batch mode: {len(data)} question(s)", flush=True)
+        succeeded = 0
+        for i, raw in enumerate(data, 1):
+            print(f"\n[author] ---- {i}/{len(data)}  id={raw.get('id', '?')} ----", flush=True)
+            out_path = _default_output_for_id(raw)
+            if _process_one(raw, out_path):
+                succeeded += 1
+        print(f"\n[author] batch complete: {succeeded}/{len(data)} succeeded", flush=True)
+        return 0 if succeeded == len(data) else 1
 
-    # Final sanity check: round-trip through the Question schema.
-    Question(**enriched)
-
-    out_path = args.output or _default_output_path(args.raw, enriched["id"])
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(enriched, f, indent=2)
-        f.write("\n")
-    print(f"[author] wrote {out_path}")
-    return 0
+    # Single-file mode
+    if isinstance(data, list):
+        print(
+            "[author] input is a JSON array; pass --batch to process all entries",
+            flush=True,
+        )
+        return 2
+    out_path = args.output or _default_single_output_path(args.raw, data["id"])
+    return 0 if _process_one(data, out_path) else 1
 
 
 if __name__ == "__main__":

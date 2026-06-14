@@ -1,0 +1,53 @@
+{
+  "id": "P011",
+  "problem_description": "Create a function called fizzbuzz that takes an integer n and returns a string. If n is divisible by both 3 and 5 it should return \"FizzBuzz\", if only by 3 return \"Fizz\", if only by 5 return \"Buzz\", otherwise return the number itself as a string.",
+  "requirements": "- Logical Decomposition: Check if n is divisible by both 3 and 5.; If not, check if n is divisible by 3.; If not, check if n is divisible by 5.; If none of the above, convert n to a string.\n- Implementation Specifications: Function name must be fizzbuzz.; It must accept a single integer parameter n.; Write the solution in Python.; Return a string exactly as specified.\n- Edge Case Handling: Handle n = 0, which is divisible by any number, so return \"FizzBuzz\".; Handle negative integers using the same divisibility rules.\n- Output Formatting: Return type must be str.; The returned string must be exactly \"Fizz\", \"Buzz\", \"FizzBuzz\", or the decimal representation of n.\n- Avoiding Default Biases: Do not return integers; always return a string.; Do not add extra whitespace or newline characters.",
+  "sample_tests": [
+    {
+      "input": "15",
+      "expected": "'FizzBuzz'"
+    },
+    {
+      "input": "9",
+      "expected": "'Fizz'"
+    },
+    {
+      "input": "10",
+      "expected": "'Buzz'"
+    },
+    {
+      "input": "7",
+      "expected": "'7'"
+    }
+  ],
+  "hidden_tests": [
+    {
+      "input": "1",
+      "expected": "'1'",
+      "edge_label": "not_divisible"
+    },
+    {
+      "input": "3",
+      "expected": "'Fizz'",
+      "edge_label": "boundary_3"
+    },
+    {
+      "input": "5",
+      "expected": "'Buzz'",
+      "edge_label": "boundary_5"
+    },
+    {
+      "input": "30",
+      "expected": "'FizzBuzz'",
+      "edge_label": "large_fizzbuzz"
+    },
+    {
+      "input": "0",
+      "expected": "'FizzBuzz'",
+      "edge_label": "zero"
+    }
+  ],
+  "reference_solution": "def fizzbuzz(n):\n    if n % 15 == 0:\n        return 'FizzBuzz'\n    elif n % 3 == 0:\n        return 'Fizz'\n    elif n % 5 == 0:\n        return 'Buzz'\n    else:\n        return str(n)",
+  "reference_prompt": "Write a Python function named fizzbuzz that takes a single integer argument n. The function should return a string according to these rules: if n is divisible by both 3 and 5 (including the case n = 0), return \"FizzBuzz\"; else if n is divisible by 3, return \"Fizz\"; else if n is divisible by 5, return \"Buzz\"; otherwise return the decimal representation of n as a string. The function must handle negative numbers using the same divisibility logic and must always return a plain string with no extra spaces or newline characters.",
+  "reference_code": "def fizzbuzz(n):\n    if n % 15 == 0:\n        return 'FizzBuzz'\n    elif n % 3 == 0:\n        return 'Fizz'\n    elif n % 5 == 0:\n        return 'Buzz'\n    else:\n        return str(n)"
+}
