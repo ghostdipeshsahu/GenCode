@@ -58,6 +58,58 @@ npm run dev
 Vite proxies `/api/*` to the backend on `:8000`, so you do not need to set
 any CORS or base-URL env vars during development. Start the backend first.
 
+## Deployment
+
+Two services: backend on Railway, frontend on Vercel. GitHub Actions runs CI
+on every push.
+
+### 1. Push to GitHub
+
+```powershell
+git remote add origin https://github.com/<you>/gencode.git
+git push -u origin main
+```
+
+CI (`.github/workflows/ci.yml`) will run on push:
+- Backend job: install requirements, compile-check Python, run
+  `scripts/validate_questions.py` which schema-checks every enriched
+  question and confirms every reference_code passes its tests.
+- Frontend job: install deps, run `npm run build`.
+
+### 2. Backend → Railway
+
+1. Create a new Railway project → "Deploy from GitHub repo".
+2. In the service settings, set **Root Directory** to `backend`.
+3. Add environment variables:
+   - `OPENROUTER_API_KEY` — your OpenRouter key
+   - `ALLOWED_ORIGINS` — your Vercel domain (e.g. `https://gencode.vercel.app`).
+     Comma-separate multiple domains. Use `*` only for testing.
+4. Railway auto-detects Python and uses `Procfile`:
+   `web: uvicorn main:app --host 0.0.0.0 --port $PORT`
+5. Health check `/api/health` is configured in `railway.json` —
+   first deploy succeeds when it returns 200.
+6. Copy the public URL (e.g. `https://gencode-backend.up.railway.app`).
+
+### 3. Frontend → Vercel
+
+1. Create a new Vercel project → import the same GitHub repo.
+2. Set **Root Directory** to `frontend`.
+3. Framework preset auto-detects Vite (build = `npm run build`,
+   output = `dist`).
+4. Add environment variable:
+   - `VITE_API_BASE_URL` = the Railway URL from step 2 (no trailing slash).
+5. Deploy.
+
+The `vercel.json` rewrites all paths to `/index.html` so client-side routing
+works. `src/api.js` reads `VITE_API_BASE_URL` at build time and prepends it
+to every `/api/*` call; locally it stays empty and the Vite dev proxy
+handles requests.
+
+### CORS
+
+The backend reads `ALLOWED_ORIGINS` (comma-separated). Set it to your Vercel
+domain in production. The default `*` is only for local dev.
+
 ## Build order
 
 This system is built in eight numbered steps. See the source build doc for full
@@ -68,5 +120,5 @@ spec. Steps 1–3 are pure Python and can be tested without the frontend.
 - Python 3.11+ / FastAPI
 - OpenRouter (OpenAI-compatible), model `openai/gpt-oss-120b:free`
 - React 18 + Vite (frontend)
-- React (frontend, Step 6)
 - In-memory session state (no database)
+- Railway (backend) + Vercel (frontend) + GitHub Actions (CI)

@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from pathlib import Path
 from typing import Dict, List
 
@@ -95,14 +96,22 @@ def _mask_hidden(r: TestResult) -> TestResult:
 
 app = FastAPI(title="GenCode Backend", version="0.1.0")
 
-# Permissive CORS for the demo. Tighten allow_origins for production.
+# CORS — set ALLOWED_ORIGINS env to a comma-separated list in production
+# (e.g. "https://gencode.vercel.app"). Default "*" keeps local dev painless.
+_allowed_origins_raw = os.environ.get("ALLOWED_ORIGINS", "*").strip()
+_allowed_origins = (
+    ["*"]
+    if _allowed_origins_raw == "*"
+    else [o.strip() for o in _allowed_origins_raw.split(",") if o.strip()]
+)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_allowed_origins,
     allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
+logger.info("CORS allow_origins=%s", _allowed_origins)
 
 
 _questions: Dict[str, Question] = _load_questions()

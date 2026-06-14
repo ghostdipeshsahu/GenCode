@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { apiUrl } from "./api.js";
 import ProblemPanel from "./components/ProblemPanel.jsx";
 import PromptEditor from "./components/PromptEditor.jsx";
 import ResultsPanel from "./components/ResultsPanel.jsx";
@@ -20,7 +21,7 @@ export default function App() {
     let cancelled = false;
     (async () => {
       try {
-        const list = await fetch("/api/questions").then((r) => {
+        const list = await fetch(apiUrl("/api/questions")).then((r) => {
           if (!r.ok) throw new Error(`/api/questions returned ${r.status}`);
           return r.json();
         });
@@ -48,7 +49,7 @@ export default function App() {
     setRunError(null);
     (async () => {
       try {
-        const q = await fetch(`/api/question/${selectedId}`).then((r) => {
+        const q = await fetch(apiUrl(`/api/question/${selectedId}`)).then((r) => {
           if (!r.ok) throw new Error(`/api/question/${selectedId} returned ${r.status}`);
           return r.json();
         });
@@ -76,7 +77,7 @@ export default function App() {
     setRunning(true);
     const attemptNumber = attempts.length + 1;
     try {
-      const resp = await fetch("/api/run", {
+      const resp = await fetch(apiUrl("/api/run"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
